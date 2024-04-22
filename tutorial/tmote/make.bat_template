@@ -1,0 +1,28 @@
+
+@setlocal
+
+@rem specify tools paths
+@rem set MINGW_PATH=<path to MinGW bin>;<path to MinGW msys bin>
+@rem set GCC_PATH=<path to mspgcc bin>
+@rem set TOOLS_PATH=<path to additional tools like base64, if required>
+
+@rem check settings
+@if "%MINGW_PATH%_check"=="_check" (
+	@echo.
+	@echo error: please set path to standard build tools [MinGW] in %~n0%~x0
+	@exit /B
+)
+@if "%GCC_PATH%_check"=="_check" (
+	@echo.
+	@echo error: please set path to MSP430 toolchain in %~n0%~x0
+	@exit /B
+)
+@if "%TOOLS_PATH%_check"=="_check" set TOOLS_PATH=.
+
+@rem extend PATH
+@set PATH=%GCC_PATH%;%MINGW_PATH%;%TOOLS_PATH%;%PATH%
+
+@rem build
+mingw32-make %1 %2 %3 %4 %5 %6 %7 %8 %9
+
+@endlocal
